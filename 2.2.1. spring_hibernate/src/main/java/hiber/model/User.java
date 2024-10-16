@@ -1,26 +1,19 @@
 package hiber.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
 public class User {
 
-   @OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "id",referencedColumnName = "id")
-   private Car car;
-
-   public Car getCar() {
-      return car;
-   }
-
-   public void setCar(Car car) {
-      this.car = car;
-   }
-
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
+
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "id",referencedColumnName = "id")
+   private Car car;
 
    @Column(name = "name")
    private String firstName;
@@ -71,6 +64,14 @@ public class User {
       this.email = email;
    }
 
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
    @Override
    public String toString() {
       return "User{" +
@@ -81,4 +82,18 @@ public class User {
               ", email='" + email + '\'' +
               '}';
    }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      User user = (User) o;
+      return Objects.equals(id, user.id) && Objects.equals(car, user.car) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(id, car, firstName, lastName, email);
+   }
+
 }
