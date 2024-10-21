@@ -20,9 +20,6 @@ public class UserDaoImp implements UserDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
 
     @Override
     public void add(User user) {
